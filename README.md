@@ -43,6 +43,8 @@ Kafka is deployed using Docker (Confluent + ZooKeeper), while Spark and Python s
 ├── kafka_producer.py
 ├── spark_kafka_consumer.py
 ├── read_delta.py
+├── read_bronze.py
+├── read_silver.py
 ├── streaming_files_to_delta_bronze.py
 ├── lake/
 │   ├── bronze/
@@ -84,6 +86,22 @@ This pipeline ingests IoT sensor data from JSON files using Spark Structured Str
 - `streaming_files_to_delta_bronze.py`
 
 The pipeline runs continuously and processes newly added JSON files only.
+
+### Reading the Delta Bronze Table
+
+#### Description
+
+A script to read and display the most recent records from the Delta Bronze table.
+
+#### Script
+
+- `read_bronze.py`
+
+#### Run
+
+```bash
+python3 read_bronze.py
+```
 
 ## Part 2.2 – Kafka-Based Streaming (Silver)
 
@@ -148,23 +166,23 @@ This Spark Structured Streaming job consumes messages from Kafka, cleans and val
 python3 spark_kafka_consumer.py
 ```
 
-> **Note**: Output directories (`lake/silver/sensor_data/` and `checkpoints/silver_sensor_data/`) are created automatically.
+### Reading the Delta Silver Table
 
-## Reading the Delta Silver Table
+#### Description
 
-### Description
+A script to read and display the most recent records from the Delta Silver table.
 
-A simple batch script to read and display the most recent records from the Delta Silver table.
+#### Script
 
-### Script
+- `read_silver.py`
 
-- `read_delta.py`
-
-### Run
+#### Run
 
 ```bash
-python3 read_delta.py
+python3 read_silver.py
 ```
+
+> **Note**: Output directories (`lake/silver/sensor_data/` and `checkpoints/silver_sensor_data/`) are created automatically.
 
 ## Execution Order Summary
 
@@ -192,10 +210,16 @@ python3 read_delta.py
    python3 spark_kafka_consumer.py
    ```
 
-5. Read the Delta Silver table:
+5. Read the Delta Bronze table:
 
    ```bash
-   python3 read_delta.py
+   python3 read_bronze.py
+   ```
+
+6. Read the Delta Silver table:
+
+   ```bash
+   python3 read_silver.py
    ```
 
 > **Note**: Each streaming component runs continuously and must be stopped manually (Ctrl + C).
