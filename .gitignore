@@ -205,3 +205,36 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --------------------
+# Data / Streaming
+# --------------------
+input/*
+!input/.gitkeep
+
+lake/*
+!lake/.gitkeep
+
+checkpoints/*
+!checkpoints/.gitkeep
+
+# --------------------
+# Python
+# --------------------
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# --------------------
+# Spark / JVM
+# --------------------
+*.log
+hs_err_pid*
+
+# --------------------
+# IDE / OS
+# --------------------
+.vscode/
+.idea/
+.DS_Store
