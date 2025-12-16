@@ -1,8 +1,15 @@
+"""
+Streaming JSON Files to Delta Lake (Bronze)
+
+This script uses Spark Structured Streaming to ingest IoT sensor data from JSON
+files, apply basic cleaning and validation, and write the results to a Delta Lake
+Bronze table with checkpointing for fault tolerance.
+"""
+
 import os
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.types import StructType, StringType, IntegerType, DoubleType
 from pyspark.sql.functions import col, current_timestamp, to_timestamp, when
-
 
 # ----------------------------
 # Paths (local project layout)
